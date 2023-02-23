@@ -1,10 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { delContact } from 'redux/contacts/operations';
 import { getContacts, getFilter } from 'redux/contacts/selectors';
-
 import css from './ContactList.module.css';
 
-const findContacts = (contacts, filter) => {
+const getVisibleContacts = (contacts, filter) => {
   if (!filter) {
     return contacts;
   } else {
@@ -15,20 +14,19 @@ const findContacts = (contacts, filter) => {
 };
 
 export const ContactList = () => {
-    const contacts = useSelector(getContacts);
-    const filter = useSelector(getFilter);
-    const findVisContacts = findContacts(contacts, filter);
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
+  const visibleContacts = getVisibleContacts(contacts, filter);
 
-    const dispatch = useDispatch();
-    const handleDelete = id => dispatch(delContact(id));
+  const dispatch = useDispatch();
+  const handleDelete = id => dispatch(delContact(id));
 
-    return (
-          <>
+  return (
     <div className={css.wraperContactList}>
       <ul className={css.contactList}>
-        {findVisContacts.map((contact, id) => (
+        {visibleContacts.map((contact, id) => (
           <li key={id} className={css.contactListItem}>
-            {contact.name}: {contact.phone}
+            {contact.name}: {contact.number}
             <button
               type="button"
               className={css.contactListItemBtn}
@@ -40,6 +38,5 @@ export const ContactList = () => {
         ))}
       </ul>
     </div>
-      </>
-    )
-}
+  );
+};
