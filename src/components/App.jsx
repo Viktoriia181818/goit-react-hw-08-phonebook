@@ -1,28 +1,28 @@
-import { useEffect, lazy } from 'react';
+import React, { useEffect, lazy } from 'react';
 import { useDispatch } from 'react-redux';
+// import { fetchContacts } from 'redux/contacts/operations';
 import { Route, Routes } from 'react-router-dom';
-import { refreshUser } from 'redux/auth/operation';
-import { useAuth } from './HookSelector';
 import { Layout } from './Layout';
-import { Loader } from './Loader/Loader';
 import { PrivateRoute } from './PrivateRoute';
 import { RestrictedRoute } from './RestrictedRoute';
+import { refreshUser } from 'redux/auth/operations';
+import { useAuth } from './hooks';
+import { Loader } from './Loader/Loader';
 
-
-
-const HomePage = lazy(() => import('../pages/Home')); 
-const RegisterPage = lazy(() => import('../pages/Register')); 
+const HomePage = lazy(() => import('../pages/Home'));
+const RegisterPage = lazy(() => import('../pages/Register'));
 const LoginPage = lazy(() => import('../pages/Login'));
-const ContactPage = lazy(() => import('../pages/Contact'));  
+const ContactsPage = lazy(() => import('../pages/Contacts'));
 
 export const App = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const { isRefreshing } = useAuth()
-  
+  const { isRefreshing } = useAuth();
+
   useEffect(() => {
-    dispatch(refreshUser())
-  }, [dispatch])
+    dispatch(refreshUser());
+    // dispatch(fetchContacts());
+  }, [dispatch]);
 
   return isRefreshing ? (
     <Loader />
@@ -48,10 +48,29 @@ export const App = () => {
         <Route
           path="contacts"
           element={
-            <PrivateRoute redirectTo="/login" component={<ContactPage />} />
+            <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
           }
         />
       </Route>
     </Routes>
-  )
-}
+
+    // <div
+    //   style={{
+    //     height: '100vh',
+    //     display: 'flex',
+    //     flexDirection: 'column',
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    //     fontSize: 20,
+    //     color: '#010101',
+    //   }}
+    // >
+    //   <h1>Phonebook</h1>
+    //   <ContactForm />
+    //   <h2> Contacts</h2>
+    //   <Filter />
+    //   {isLoading && !error && <Loader />}
+    //   <ContactList />
+    // </div>
+  );
+};
