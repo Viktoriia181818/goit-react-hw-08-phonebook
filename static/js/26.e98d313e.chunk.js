@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkgoit_react_hw_08_phonebook=self.webpackChunkgoit_react_hw_08_phonebook||[]).push([[26],{3026:function(n,e,t){t.r(e),t.d(e,{Register:function(){return s}});var i=t(5465),r=t(9434),o=(t(4954),t(184)),c=function(){(0,r.I0)()};function s(){return(0,o.jsxs)("div",{children:[(0,o.jsx)(i.X,{children:(0,o.jsx)("h1",{children:"Registration"})}),(0,o.jsx)(c,{})]})}}}]);
-//# sourceMappingURL=26.e98d313e.chunk.js.map
